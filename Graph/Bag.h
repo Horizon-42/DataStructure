@@ -58,6 +58,7 @@ public:
   int size();
   Node<Item> *begin();
   Node<Item> *end();
+  void reverse();
 
   virtual ~Bag();
 

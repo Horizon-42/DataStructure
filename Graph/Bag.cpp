@@ -38,6 +38,21 @@ Node<Item> *Bag<Item>::begin()
 }
 
 template <class Item>
+void Bag<Item>::reverse()
+{
+    Node<Item> *p = NULL, *p_ahead = NULL, *p_behind = NULL;
+    p_ahead = p_behind = first;
+    while (p_ahead != NULL)
+    {
+        p_ahead = p_ahead->next;
+        p_behind->next = p;
+        p = p_behind;
+        p_behind = p_ahead;
+    }
+    first = p;
+}
+
+template <class Item>
 Node<Item> *Bag<Item>::end()
 {
     return NULL;
