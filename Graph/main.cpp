@@ -14,5 +14,12 @@ int main()
     {
         cout << *it << " ";
     }
+    a.reverse();
+
+    cout << endl;
+    for (Bag<int>::iterator it = a.begin(); it != a.end(); it++)
+    {
+        cout << *it << " ";
+    }
     return 0;
 }
