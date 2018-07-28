@@ -1,5 +1,6 @@
 #include <vector>
 #include <algorithm>
+#include <string>
 #define amount 10000
 using namespace std;
 class MyHashMap
@@ -219,5 +220,67 @@ public:
     }
 
     return res;
+  }
+
+  bool isIsomorphic(string s, string t)
+  {
+    MyHashMap s_t;
+    MyHashMap t_s;
+    for (int i = 0; i < s.length(); ++i)
+    {
+      if (s_t.get(s[i]) == -1)
+      {
+        s_t.put(s[i], t[i]);
+      }
+      if (t_s.get(t[i]) == -1)
+      {
+        t_s.put(t[i], s[i]);
+      }
+    }
+    string get_t = "", get_s = "";
+    for (int i = 0; i < s.length(); ++i)
+    {
+      get_t += (char)s_t.get(s[i]);
+      get_s += (char)t_s.get(t[i]);
+    }
+    return get_t == t && get_s == s;
+  }
+
+  vector<string> findRestaurant(vector<string> &list1, vector<string> &list2)
+  {
+    MyHashSet set;
+    for (auto str : list1)
+    {
+      set.add(ele_hash(str.c_str()));
+    }
+    vector<string> res;
+    for (auto str : list2)
+    {
+      if (set.contains(ele_hash(str.c_str())))
+      {
+        res.push_back(str);
+      }
+    }
+    return res;
+  }
+
+private:
+  unsigned int ele_hash(const char *str)
+  {
+    unsigned int hash = 0;
+    unsigned int x = 0;
+
+    while (*str)
+    {
+      hash = (hash << 4) + *str;
+      if ((x = hash & 0xf0000000) != 0)
+      {
+        hash ^= (x >> 24);
+        hash &= ~x;
+      }
+      str++;
+    }
+
+    return (hash & 0x7fffffff);
   }
 };
